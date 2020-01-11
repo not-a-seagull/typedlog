@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "es3",
+    "removeComments": true,
+    "sourceMap": true,
+    "strict": true,
+    "strictNullChecks": false,
+    "baseUrl": ".",
+    "sourceMap": true,
+    "outDir": "dist/",
+    "noEmitOnError": true,
+    "module": "commonjs",
+    "downlevelIteration": true,
+    "noImplicitAny": true,
+    "importHelpers": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+
+    "lib": ["es6", "dom"],
+    "noLib": false
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
