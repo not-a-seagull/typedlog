@@ -1,5 +1,5 @@
 /*
- * src/index.ts
+ * src/default/browser-env.ts
  * tlog - Tiny logging utility with TypeScript support
  *
  * Copyright (c) 2019, not_a_seagull
@@ -31,55 +31,21 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { LogLevel } from "./level";
-import { defaultLvl } from "./default/node-env";
+// load the level from a querystring or localstorage
+import { LogLevel, parseLogLevel } from "../level";
 
-// a log function
-type LogFunction = (this: any, ...args: any[]) => void;
+export function defaultLvl(): LogLevel {
+  const query = location.search.substring(1).split("&"); 
+  for (let i = 0; i < query.length; i++) {
+    let [key, value] = query[i].split("=");
+    if (key === "log") {
+      return parseLogLevel(value);
+    }
+  }
 
-// names of logging functions
-type LogFunctionName = "error" | "warn" | "info" | "log" | "debug" | "trace";
-
-interface Logger {
-  name: string;
-	error: LogFunction;
-  warn: LogFunction;
-	info: LogFunction;
-	log: LogFunction;
-	debug: LogFunction;
-  trace: LogFunction;
-  level: LogLevel;
-}
-
-// instantiate a console-based log function
-function createConsoleFunction(logLevel: LogLevel, logName: LogFunctionName): LogFunction {
-	return function(this: Logger, ...args: any[]) {
-		if (this.level <= logLevel) {
-      console[logName](args);
-		}
-	};
-}
-
-let defaultLevel: LogLevel | undefined = undefined;
-
-function getDefaultLevel(): LogLevel {
-  if (defaultLevel !== undefined) {
-    return defaultLevel;
+  try {
+    return parseLogLevel(localStorage.getItem("log"));
+	} catch {
+    return LogLevel.Debug;
 	}
-  return (defaultLevel = defaultLvl());
 }
-
-function logger(name: string): Logger {
-	return {
-		name,
-		level: getDefaultLevel(),
-		error: createConsoleFunction(LogLevel.Error, "error"),
-		warn: createConsoleFunction(LogLevel.Warn, "warn"),
-		info: createConsoleFunction(LogLevel.Info, "info"),
-		log: createConsoleFunction(LogLevel.Log, "log"),
-    debug: createConsoleFunction(LogLevel.Debug, "debug"),
-    trace: createConsoleFunction(LogLevel.Trace, "trace")
-	};
-}
-
-export {logger, LogLevel};

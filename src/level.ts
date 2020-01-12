@@ -1,5 +1,5 @@
 /*
- * src/index.ts
+ * src/level.ts
  * tlog - Tiny logging utility with TypeScript support
  *
  * Copyright (c) 2019, not_a_seagull
@@ -31,55 +31,26 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { LogLevel } from "./level";
-import { defaultLvl } from "./default/node-env";
-
-// a log function
-type LogFunction = (this: any, ...args: any[]) => void;
-
-// names of logging functions
-type LogFunctionName = "error" | "warn" | "info" | "log" | "debug" | "trace";
-
-interface Logger {
-  name: string;
-	error: LogFunction;
-  warn: LogFunction;
-	info: LogFunction;
-	log: LogFunction;
-	debug: LogFunction;
-  trace: LogFunction;
-  level: LogLevel;
+// log level enum
+export enum LogLevel {
+  Error = 1,
+  Warn,
+  Info,
+  Log,
+  Debug,
+  Trace
 }
 
-// instantiate a console-based log function
-function createConsoleFunction(logLevel: LogLevel, logName: LogFunctionName): LogFunction {
-	return function(this: Logger, ...args: any[]) {
-		if (this.level <= logLevel) {
-      console[logName](args);
-		}
-	};
-}
-
-let defaultLevel: LogLevel | undefined = undefined;
-
-function getDefaultLevel(): LogLevel {
-  if (defaultLevel !== undefined) {
-    return defaultLevel;
+// parse a log level from an environment variable or a 
+export function parseLogLevel(value: string): LogLevel {
+  const valAsNumber = parseInt(value, 10);
+	const trueValue: string | number = valAsNumber === NaN ? value.toLowerCase() : valAsNumber;
+	switch (trueValue) {
+    case "error": case 1: return LogLevel.Error;
+    case "warn": case 2: return LogLevel.Warn;
+		case "info": case 3: return LogLevel.Info;
+		case "log": case 4: return LogLevel.Log;
+		case "trace": case 6: return LogLevel.Trace;
+		case "debug": case 5: default: return LogLevel.Debug;
 	}
-  return (defaultLevel = defaultLvl());
 }
-
-function logger(name: string): Logger {
-	return {
-		name,
-		level: getDefaultLevel(),
-		error: createConsoleFunction(LogLevel.Error, "error"),
-		warn: createConsoleFunction(LogLevel.Warn, "warn"),
-		info: createConsoleFunction(LogLevel.Info, "info"),
-		log: createConsoleFunction(LogLevel.Log, "log"),
-    debug: createConsoleFunction(LogLevel.Debug, "debug"),
-    trace: createConsoleFunction(LogLevel.Trace, "trace")
-	};
-}
-
-export {logger, LogLevel};

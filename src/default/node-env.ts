@@ -1,5 +1,5 @@
 /*
- * src/index.ts
+ * src/default/node-env.ts
  * tlog - Tiny logging utility with TypeScript support
  *
  * Copyright (c) 2019, not_a_seagull
@@ -31,55 +31,15 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { LogLevel } from "./level";
-import { defaultLvl } from "./default/node-env";
+// load the level from an environment variable
+import { LogLevel, parseLogLevel } from "../level";
 
-// a log function
-type LogFunction = (this: any, ...args: any[]) => void;
-
-// names of logging functions
-type LogFunctionName = "error" | "warn" | "info" | "log" | "debug" | "trace";
-
-interface Logger {
-  name: string;
-	error: LogFunction;
-  warn: LogFunction;
-	info: LogFunction;
-	log: LogFunction;
-	debug: LogFunction;
-  trace: LogFunction;
-  level: LogLevel;
-}
-
-// instantiate a console-based log function
-function createConsoleFunction(logLevel: LogLevel, logName: LogFunctionName): LogFunction {
-	return function(this: Logger, ...args: any[]) {
-		if (this.level <= logLevel) {
-      console[logName](args);
-		}
-	};
-}
-
-let defaultLevel: LogLevel | undefined = undefined;
-
-function getDefaultLevel(): LogLevel {
-  if (defaultLevel !== undefined) {
-    return defaultLevel;
+export function defaultLvl(): LogLevel {
+  // get the log level from the environment variables
+	const logEnv = process.env.LOG;
+	if (logEnv === undefined) {
+    return LogLevel.Debug;
 	}
-  return (defaultLevel = defaultLvl());
-}
 
-function logger(name: string): Logger {
-	return {
-		name,
-		level: getDefaultLevel(),
-		error: createConsoleFunction(LogLevel.Error, "error"),
-		warn: createConsoleFunction(LogLevel.Warn, "warn"),
-		info: createConsoleFunction(LogLevel.Info, "info"),
-		log: createConsoleFunction(LogLevel.Log, "log"),
-    debug: createConsoleFunction(LogLevel.Debug, "debug"),
-    trace: createConsoleFunction(LogLevel.Trace, "trace")
-	};
+	return parseLogLevel(logEnv);
 }
-
-export {logger, LogLevel};

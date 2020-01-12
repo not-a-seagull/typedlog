@@ -1,5 +1,7 @@
+const webpack = require("webpack");
+
 module.exports = {
-  mode: "production",
+  mode: "development",
   devtool: "source-map",
 
   entry: "./src/index.ts",
@@ -7,6 +9,12 @@ module.exports = {
   resolve: {
     extensions: [ ".ts", ".tsx", ".js", ".jsx" ]
   },
+
+	plugins: [
+    new webpack.DefinePlugin({
+      "node-env": "browser-env"
+		})
+	],
 
   module: {
     rules: [
@@ -25,6 +33,8 @@ module.exports = {
   },
 
   output: {
+    library: "tlog",
+    libraryTarget: "assign",
     filename: "webpack.js"
   }
 };

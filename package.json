@@ -2,20 +2,20 @@
   "name": "tlog",
   "version": "0.1.0",
   "description": "Tiny logging utility with Typescript support",
-  "main": "dist/node.js",
+  "main": "dist/index.js",
   "author": "not_a_seagull",
   "license": "BSD-3-Clause",
   "devDependencies": {
     "mocha": "^7.0.0",
     "source-map-loader": "^0.2.4",
-    "terser": "^4.6.2",
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.4",
     "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1"
   },
   "scripts": {
-    "build-node": "npx tsc && npx terser dist/index.js > dist/node.js",
+    "build-node": "npx tsc",
     "build-webpack": "npx webpack",
     "build": "npm run build-node && npm run build-webpack"
   },
