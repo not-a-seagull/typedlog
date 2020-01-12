@@ -16,6 +16,15 @@ $ npm i --save typedlog
 $ yarn add typedlog
 ```
 
+If you would like to use typedlog inside of the web browser, pull it from [unpkg](unpkg.com).
+
+```
+<script src="https://unpkg.com/typedlog" type="text/javascript />
+<script type="text/javascript">
+// your code here
+</script>
+```
+
 ## Usage
 
 ```
@@ -120,7 +129,7 @@ logger.log("This should go to the file");
 
 ## Test Suite
 
-typedlog uses [https://github.com/substack/tape](tape) for testing. In order to run the test suite, first install typedlog's development dependencies.
+typedlog uses [tape](https://github.com/substack/tape) for testing. In order to run the test suite, first install typedlog's development dependencies.
 
 ```
 # npm users
