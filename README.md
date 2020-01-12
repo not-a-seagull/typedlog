@@ -5,6 +5,15 @@
 
 This library was created due to my dissatisfaction with ulog's lack of Typescript support. This allows one to create logging modules to use in their programs.
 
+## Installation
+
+```
+# npm users
+$ npm i --save typedlog
+# yarn users
+$ yarn add typedlog
+```
+
 ## Usage
 
 ```
