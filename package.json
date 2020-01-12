@@ -30,5 +30,6 @@
     "coverage": "npx nyc npx tape test/**/*.js && npx nyc report --reporter=text-lcov | coveralls",
     "test": "npx tape test/**/*.js | npx tap-markdown"
   },
-  "unpkg": "dist/webpack.js"
+  "unpkg": "dist/webpack.js",
+  "files": "dist/*"
 }
