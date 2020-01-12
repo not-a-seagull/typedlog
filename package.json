@@ -1,6 +1,6 @@
 {
   "name": "typedlog",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "Tiny logging utility with Typescript support",
   "main": "dist/index.js",
   "author": "not_a_seagull",
