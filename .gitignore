@@ -2,5 +2,5 @@ node_modules/
 src/index.js
 dist/
 
-.nyc-output/
+.nyc_output/
 yarn-error.log
