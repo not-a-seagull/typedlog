@@ -37,7 +37,9 @@ import { LogLevel, parseLogLevel } from "../level";
 export function defaultLvl(): LogLevel {
   const query = location.search.substring(1).split("&"); 
   for (let i = 0; i < query.length; i++) {
-    let [key, value] = query[i].split("=");
+    let keyValue = query[i].split("=");
+		let key = keyValue[0];
+		let value = keyValue[1];
     if (key === "log") {
       return parseLogLevel(value);
     }

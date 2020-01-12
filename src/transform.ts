@@ -1,5 +1,5 @@
 /*
- * src/index.ts
+ * src/transform.ts
  * tlog - Tiny logging utility with TypeScript support
  *
  * Copyright (c) 2019, not_a_seagull
@@ -31,66 +31,5 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { defaultLvl } from "./default/node-env";
-import { LogLevel } from "./level";
-import { Transform } from "./transform";
-
-// a log function
-type LogFunction = (this: any, ...args: any[]) => void;
-
-// names of logging functions
-type LogFunctionName = "error" | "warn" | "info" | "log" | "debug" | "trace";
-
-interface Logger {
-  name: string;
-	error: LogFunction;
-  warn: LogFunction;
-	info: LogFunction;
-	log: LogFunction;
-	debug: LogFunction;
-  trace: LogFunction;
-  level: LogLevel;
-	transforms: Transform[];
-}
-
-// instantiate a console-based log function
-function createConsoleFunction(logLevel: LogLevel, logName: LogFunctionName): LogFunction {
-	return function(this: Logger, ...args: any[]) {
-		if (this.level <= logLevel) {
-			// apply transforms
-      for (let i = 0; i < this.transforms.length; i++) {
-        this.transforms[i](args);
-			}
-
-      console[logName](args);
-		}
-	};
-}
-
-let defaultLevel: LogLevel | undefined = undefined;
-
-function getDefaultLevel(): LogLevel {
-  if (defaultLevel !== undefined) {
-    return defaultLevel;
-	}
-  return (defaultLevel = defaultLvl());
-}
-
-// copy LogLevel into a const to help with minification
-const ll = LogLevel;
-
-function logger(name: string): Logger {
-	return {
-		name,
-		level: getDefaultLevel(),
-		error: createConsoleFunction(ll.Error, "error"),
-		warn: createConsoleFunction(ll.Warn, "warn"),
-		info: createConsoleFunction(ll.Info, "info"),
-		log: createConsoleFunction(ll.Log, "log"),
-    debug: createConsoleFunction(ll.Debug, "debug"),
-		trace: createConsoleFunction(ll.Trace, "trace"),
-		transforms: []
-	};
-}
-
-export {logger, LogLevel, Transform};
+// custom transforms that can be executed on the array arguments
+export type Transform = (args: any[]) => void;

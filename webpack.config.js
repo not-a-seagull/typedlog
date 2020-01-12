@@ -1,7 +1,7 @@
 const webpack = require("webpack");
 
 module.exports = {
-  mode: "development",
+  mode: "production",
   devtool: "source-map",
 
   entry: "./src/index.ts",
@@ -11,9 +11,10 @@ module.exports = {
   },
 
 	plugins: [
-    new webpack.DefinePlugin({
-      "node-env": "browser-env"
-		})
+    new webpack.NormalModuleReplacementPlugin(
+      /\/default\/node-env/,
+			".\/default\/browser-env"
+		)
 	],
 
   module: {

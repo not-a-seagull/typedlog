@@ -12,7 +12,6 @@
     "module": "commonjs",
     "downlevelIteration": true,
     "noImplicitAny": true,
-    "importHelpers": true,
     "resolveJsonModule": true,
     "declaration": true,
 
