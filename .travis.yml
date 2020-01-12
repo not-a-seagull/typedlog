@@ -1,10 +1,17 @@
 language: node_js
-node_js:
- - 10
- - 12
+node_js: 10
 
 before_script:
- - npm run build
+- npm run build
 
 script:
- - npm run coverage
+- npm run coverage
+
+deploy:
+  provider: npm
+  email: jtnunley01@gmail.com
+  api_key:
+    secure: EJPYpn1Dy61JI+94Ue/MJo/nOYk4EA8XycIULGu8bozkQRCk0wbxL+JOnVIBSZXbkeMWxDKZz2tKokwRXl40fyDYf3dnrm8BoXVwSFwCy32G1WPrRaRYrp2OTT4zNwmqSPzYjYV9FdHNKD6u74iVIwvIX0O0U7jJO2lunKtQ4NTV+vJIHLzRNZujoP8cpAMVAPFAOR4BOrOOggOjJqhF99AWbElZjTREGSQBNXQ1rcPay20/bv9EAluTxgW5MjCPQSdWcb5JDPkCo3ouIhxxd0265hLJ8M8y9HEa4Whf4RvVG00Wc40P2iQkkjABzj3iQ7CMM1Nkhh4BOV7K+EMyUbmZwD+dkgMX8KFNEOPACVGBKvjFJnTjzFEyn79EV1lAsnQYOpwL78htqMKpb+mIUWJGvWltH1JutxmYFDEGfO91CWUkbQqKETsTXy4Qqprmvk+ErQcJQIEwL+ZE+ZYgF4mzpcos5QC+TCnce9JjoePecrS0EdsZB6BowtRe1m3AMXVuiajaSQt02i4sYZIvh/QKsiv9hUsNdtWHi16qSok7a1r5fH1/+ALv30gUkxlK6YeSaFQai35rq6ajMGoaDIm2nLHtPObx/hvLzVLYZEd/YUE/nKnm4qe+eZosYzvFsW2atcXCyRq57hdiyA36kpGnKj9bPEkL6PB8BVZncno=
+  on:
+    tags: true
+    repo: not-a-seagull/tlog
