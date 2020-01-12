@@ -8,12 +8,3 @@ script:
 - npm run coverage
 
 cache: npm
-
-deploy:
-  provider: npm
-  email: jtnunley01@gmail.com
-  api_key:
-    secure: "wLuz9N5urLmEVq30AyJXy4HUSTBSijJcRNFsXdcYu9TtnvAy6IAWH3cE2LLVUhGTRSWHXGpbsmQrKicMsvsHQNyTPvS7xDA6Yz7AKUjDdDxb3xcrhwhHYJYudryz77q6O2wt5JBiut9KEodZpK3+E2eMrSMHs+0VXB8zcM/pN/69kUugAJfkfG893K3kgUESwdqLKx9Ln7/4KCDZXpySl7c1R98L2xz9ObLYg2/M9Gn/GhNpA1ltmU+3p0nSXhuAmTmLwCAykaZJ1gpFWbjVoHuvTq6LU2J4qJY4MuTj8D7B/PW61OwFVc7FkDtxPnpRR0ix46QqIgT4WuxlppCzwdWQJd8L2zr1sHZXliCvJS4mvi/V4UbkdwJOmIp4fYCnYbxQ5rcDEm6CiftvVu0FvufV7UiczHbfWv1LaEus3PLVEEEGrJ6DZA8JKydBWE8JpJkWl/BCXKcu7VCeYfKHE1I15bCh8NsOoWt6yasXY3DlHSLwvMSEVnIY/AkjER6nkx1mvMPHs51Rj1S166BZPpe5WuaYMz9hfevhtWxuagS4rzMPX0lML6smxDkR6TLGttegPMMjNzHkTgW/y2BQr/2f0LqX6alyIOT4ucIrjDdOxEpi+VVhImePMLI+pfi8Co4olU+OuyPPmXdK9sMIjrxGXFlWft7Zi3qnqdy8oYk="
-  on:
-    tags: true
-    repo: not-a-seagull/tlog
