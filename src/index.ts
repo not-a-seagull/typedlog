@@ -1,6 +1,6 @@
 /*
  * src/index.ts
- * tlog - Tiny logging utility with TypeScript support
+ * typedlog - Tiny logging utility with TypeScript support
  *
  * Copyright (c) 2019, not_a_seagull
  * All rights reserved.
@@ -62,7 +62,7 @@ function createConsoleFunction(logLevel: LogLevel, logName: LogFunctionName, int
 		if (this.level <= logLevel) {
 			// apply transforms
       for (let i = 0; i < this.transforms.length; i++) {
-        this.transforms[i](args);
+        this.transforms[i](args, logLevel, this.name);
 			}
 
       internal[logName](args);

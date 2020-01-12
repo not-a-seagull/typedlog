@@ -1,6 +1,6 @@
 /*
  * test/levels.js
- * tlog - Tiny logging utility with TypeScript support
+ * typedlog - Tiny logging utility with TypeScript support
  *
  * Copyright (c) 2019, not_a_seagull
  * All rights reserved.
@@ -35,9 +35,9 @@ require("@babel/register");
 
 const sinon = require("sinon");
 const test = require("tape-catch");
-const tlog = require("../dist");
+const typedlog = require("../dist");
 
-const LogLevels = tlog.LogLevel;
+const LogLevels = typedlog.LogLevel;
 
 // levels to test at
 const levels = [
@@ -73,7 +73,7 @@ for (let i = 0; i < levels.length; i++) {
   test(`Setting logger to log level ${methodNames[i]} functions properly`, (assert) => {
     assert.plan(levels.length);
 
-    const logger = tlog.logger("testing", fakeConsole);
+    const logger = typedlog.logger("testing", fakeConsole);
     logger.level = levels[i];
     for (let j = 0; j < levels.length; j++) {
       logger[methodNames[j]](`Message at level ${methodNames[j]}`);

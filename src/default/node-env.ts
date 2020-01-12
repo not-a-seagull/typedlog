@@ -1,6 +1,6 @@
 /*
  * src/default/node-env.ts
- * tlog - Tiny logging utility with TypeScript support
+ * typedlog - Tiny logging utility with TypeScript support
  *
  * Copyright (c) 2019, not_a_seagull
  * All rights reserved.

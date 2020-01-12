@@ -1,6 +1,6 @@
 /*
  * src/transform.ts
- * tlog - Tiny logging utility with TypeScript support
+ * typedlog - Tiny logging utility with TypeScript support
  *
  * Copyright (c) 2019, not_a_seagull
  * All rights reserved.
@@ -32,4 +32,5 @@
  */
 
 // custom transforms that can be executed on the array arguments
-export type Transform = (args: any[]) => void;
+import { LogLevel } from "./level";
+export type Transform = (args: any[], level: LogLevel, modname: string) => void;

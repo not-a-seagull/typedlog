@@ -1,6 +1,6 @@
 /*
  * test/set-default.js
- * tlog - Tiny logging utility with TypeScript support
+ * typedlog - Tiny logging utility with TypeScript support
  *
  * Copyright (c) 2019, not_a_seagull
  * All rights reserved.
@@ -36,12 +36,12 @@ require("@babel/register");
 const test = require("tape-catch");
 
 // set an environment variable for "DEBUG"
-process.env.LVL = "debug";
+process.env.LOG = "error";
 
-const tlog = require("../dist");
+const typedlog = require("../dist");
 
 test("Logger's default level should correspond with the environment variable", (assert) => {
   assert.plan(1);
-	const logger = tlog.logger("test-name");
-	assert.equal(logger.level, tlog.LogLevel.Debug);
+	const logger = typedlog.logger("test-name");
+	assert.equal(logger.level, typedlog.LogLevel.Error);
 });

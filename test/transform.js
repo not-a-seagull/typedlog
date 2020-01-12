@@ -1,5 +1,5 @@
 /*
- * test/parse-level.js
+ * test/levels.js
  * typedlog - Tiny logging utility with TypeScript support
  *
  * Copyright (c) 2019, not_a_seagull
@@ -33,34 +33,19 @@
 
 require("@babel/register");
 
+const sinon = require("sinon");
 const test = require("tape-catch");
-const loglevel = require("../dist/level");
+const typedlog = require("../dist");
 
-const ll = loglevel.LogLevel;
+test("Transforms should function properly", (assert) => {
+  assert.plan(2);
+  const fakeConsole = { info: sinon.fake() };
+  const logger = typedlog.logger("test", fakeConsole);
 
-// map to test
-const testMap = {
-  "trace": ll.Trace,
-  "debug": ll.Debug,
-  "log": ll.Log,
-  "info": ll.Info,
-  "warn": ll.Warn,
-  "error": ll.Error,
-  "1": ll.Error,
-  "2": ll.Warn,
-  "3": ll.Info,
-  "4": ll.Log,
-  "5": ll.Debug,
-  "6": ll.Trace,
-  "TRACE": ll.Trace,
-  "InFo": ll.Info,
-  "NOTHING": ll.Debug,
-  "No-Op": ll.Debug
-};
+  logger.transforms.push((args, _, modname) => { args.unshift(modname); }); // prepend modname to output
+  logger.info("second");
 
-for (const mapping of Object.keys(testMap)) {
-  test(`Ensuring "${mapping}" maps to ${testMap[mapping]}`, (assert) => {
-    assert.plan(1);
-    assert.equal(loglevel.parseLogLevel(mapping), testMap[mapping]);
-  });
-}
+  const calledArgs = fakeConsole.info.getCall(0).args[0];
+  assert.equal(calledArgs[0], "test");
+  assert.equal(calledArgs[1], "second");
+});
