@@ -27,8 +27,8 @@
     "build-node": "npx tsc",
     "build-webpack": "npx webpack",
     "build": "npm run build-node && npm run build-webpack",
-    "test": "npx nyc npx tape test/**/*.js | npx tap-nyc | npx nyc report --reporter=text-lcov | coveralls",
-    "visual-test": "npx tape test/**/*.js | npx tap-markdown"
+    "coverage": "npx nyc npx tape test/**/*.js | npx nyc report --reporter=text-lcov | coveralls",
+    "test": "npx tape test/**/*.js | npx tap-markdown"
   },
   "unpkg": "dist/webpack.js"
 }
