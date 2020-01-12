@@ -41,20 +41,23 @@ type LogFunction = (this: any, ...args: any[]) => void;
 // names of logging functions
 type LogFunctionName = "error" | "warn" | "info" | "log" | "debug" | "trace";
 
-interface Logger {
-  name: string;
+export interface ConsoleLikeObject {
 	error: LogFunction;
   warn: LogFunction;
 	info: LogFunction;
 	log: LogFunction;
 	debug: LogFunction;
   trace: LogFunction;
+}
+
+export interface Logger extends ConsoleLikeObject {
+  name: string;
   level: LogLevel;
 	transforms: Transform[];
 }
 
 // instantiate a console-based log function
-function createConsoleFunction(logLevel: LogLevel, logName: LogFunctionName): LogFunction {
+function createConsoleFunction(logLevel: LogLevel, logName: LogFunctionName, internal: ConsoleLikeObject): LogFunction {
 	return function(this: Logger, ...args: any[]) {
 		if (this.level <= logLevel) {
 			// apply transforms
@@ -62,7 +65,7 @@ function createConsoleFunction(logLevel: LogLevel, logName: LogFunctionName): Lo
         this.transforms[i](args);
 			}
 
-      console[logName](args);
+      internal[logName](args);
 		}
 	};
 }
@@ -79,16 +82,20 @@ function getDefaultLevel(): LogLevel {
 // copy LogLevel into a const to help with minification
 const ll = LogLevel;
 
-function logger(name: string): Logger {
+function logger(name: string, internal: ConsoleLikeObject = null): Logger {
+	if (!internal) {
+    internal = console;
+	}
+
 	return {
 		name,
 		level: getDefaultLevel(),
-		error: createConsoleFunction(ll.Error, "error"),
-		warn: createConsoleFunction(ll.Warn, "warn"),
-		info: createConsoleFunction(ll.Info, "info"),
-		log: createConsoleFunction(ll.Log, "log"),
-    debug: createConsoleFunction(ll.Debug, "debug"),
-		trace: createConsoleFunction(ll.Trace, "trace"),
+		error: createConsoleFunction(ll.Error, "error", internal),
+		warn: createConsoleFunction(ll.Warn, "warn", internal),
+		info: createConsoleFunction(ll.Info, "info", internal),
+		log: createConsoleFunction(ll.Log, "log", internal),
+    debug: createConsoleFunction(ll.Debug, "debug", internal),
+		trace: createConsoleFunction(ll.Trace, "trace", internal),
 		transforms: []
 	};
 }

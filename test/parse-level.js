@@ -1,5 +1,5 @@
 /*
- * src/level.ts
+ * test/parse-level.js
  * tlog - Tiny logging utility with TypeScript support
  *
  * Copyright (c) 2019, not_a_seagull
@@ -31,26 +31,36 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// log level enum
-export enum LogLevel {
-  Error = 1,
-  Warn,
-  Info,
-  Log,
-  Debug,
-  Trace
-}
+require("@babel/register");
 
-// parse a log level from an environment variable or a 
-export function parseLogLevel(value: string): LogLevel {
-  const valAsNumber = parseInt(value, 10);
-	const trueValue: string | number = valAsNumber || value.toLowerCase();
-	switch (trueValue) {
-    case "error": case 1: return LogLevel.Error;
-    case "warn": case 2: return LogLevel.Warn;
-		case "info": case 3: return LogLevel.Info;
-		case "log": case 4: return LogLevel.Log;
-		case "trace": case 6: return LogLevel.Trace;
-		case "debug": case 5: default: return LogLevel.Debug;
-	}
+const test = require("tape-catch");
+const loglevel = require("../dist/level");
+
+const ll = loglevel.LogLevel;
+
+// map to test
+const testMap = {
+  "trace": ll.Trace,
+  "debug": ll.Debug,
+  "log": ll.Log,
+  "info": ll.Info,
+  "warn": ll.Warn,
+  "error": ll.Error,
+  "1": ll.Error,
+  "2": ll.Warn,
+  "3": ll.Info,
+  "4": ll.Log,
+  "5": ll.Debug,
+  "6": ll.Trace,
+  "TRACE": ll.Trace,
+  "InFo": ll.Info,
+  "NOTHING": ll.Debug,
+  "No-Op": ll.Debug
+};
+
+for (const mapping of Object.keys(testMap)) {
+  test(`Ensuring "${mapping}" maps to ${testMap[mapping]}`, (assert) => {
+    assert.plan(1);
+    assert.equal(loglevel.parseLogLevel(mapping), testMap[mapping]);
+  });
 }

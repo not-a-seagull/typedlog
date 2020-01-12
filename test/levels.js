@@ -1,5 +1,5 @@
 /*
- * src/level.ts
+ * test/levels.js
  * tlog - Tiny logging utility with TypeScript support
  *
  * Copyright (c) 2019, not_a_seagull
@@ -31,26 +31,57 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// log level enum
-export enum LogLevel {
-  Error = 1,
-  Warn,
-  Info,
-  Log,
-  Debug,
-  Trace
+require("@babel/register");
+
+const sinon = require("sinon");
+const test = require("tape-catch");
+const tlog = require("../dist");
+
+const LogLevels = tlog.LogLevel;
+
+// levels to test at
+const levels = [
+  LogLevels.Trace,
+  LogLevels.Debug,
+  LogLevels.Log,
+  LogLevels.Info,
+  LogLevels.Warn,
+  LogLevels.Error
+];
+
+const methodNames = [
+  "trace",
+  "debug",
+  "log",
+  "info",
+  "warn",
+  "error"
+];
+
+// sinon mock
+function setupMock() {
+	let fakeConsole = {};
+  for (const method of methodNames) {
+    fakeConsole[method] = sinon.fake();
+  }
+	return fakeConsole;
 }
 
-// parse a log level from an environment variable or a 
-export function parseLogLevel(value: string): LogLevel {
-  const valAsNumber = parseInt(value, 10);
-	const trueValue: string | number = valAsNumber || value.toLowerCase();
-	switch (trueValue) {
-    case "error": case 1: return LogLevel.Error;
-    case "warn": case 2: return LogLevel.Warn;
-		case "info": case 3: return LogLevel.Info;
-		case "log": case 4: return LogLevel.Log;
-		case "trace": case 6: return LogLevel.Trace;
-		case "debug": case 5: default: return LogLevel.Debug;
-	}
+// set up log level testing
+for (let i = 0; i < levels.length; i++) {
+  let fakeConsole = setupMock();
+  test(`Setting logger to log level ${methodNames[i]} functions properly`, (assert) => {
+    assert.plan(levels.length);
+
+    const logger = tlog.logger("testing", fakeConsole);
+    logger.level = levels[i];
+    for (let j = 0; j < levels.length; j++) {
+      logger[methodNames[j]](`Message at level ${methodNames[j]}`);
+      if (i < j) {
+        assert.equal(fakeConsole[methodNames[j]].callCount, 0, `Method ${methodNames[j]} should not be called`);
+      } else {
+        assert.equal(fakeConsole[methodNames[j]].callCount, 1, `Method ${methodNames[j]} should be called`);
+      }
+    }
+  });
 }

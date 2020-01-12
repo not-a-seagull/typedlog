@@ -6,8 +6,16 @@
   "author": "not_a_seagull",
   "license": "BSD-3-Clause",
   "devDependencies": {
-    "mocha": "^7.0.0",
+    "@babel/core": "^7.8.0",
+    "@babel/preset-env": "^7.8.0",
+    "@babel/register": "^7.8.0",
+    "nyc": "^15.0.0",
+    "sinon": "^8.0.4",
     "source-map-loader": "^0.2.4",
+    "tap-markdown": "not-a-seagull/tap-markdown",
+    "tap-nyc": "^1.0.3",
+    "tape": "^4.13.0",
+    "tape-catch": "^1.0.6",
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.4",
     "webpack": "^4.41.5",
@@ -17,7 +25,9 @@
   "scripts": {
     "build-node": "npx tsc",
     "build-webpack": "npx webpack",
-    "build": "npm run build-node && npm run build-webpack"
+    "build": "npm run build-node && npm run build-webpack",
+    "test": "npx nyc npx tape test/**/*.js | npx tap-nyc",
+    "visual-test": "npx tape test/**/*.js | npx tap-markdown"
   },
   "unpkg": "dist/webpack.js"
 }
