@@ -1,6 +1,6 @@
 # tlog - Minimalistic log implementation with TypeScript support
 
-<a href="https://travis-ci.org/not-a-seagull/tlog"><img href="https://travis-ci.org/not-a-seagull/tlog.svg?branch=master" alt="Build Status" /></a> <a href='https://coveralls.io/github/not-a-seagull/tlog?branch=master'><img src='https://coveralls.io/repos/github/not-a-seagull/tlog/badge.svg?branch=master' alt='Coverage Status' /></a>
+<a href="https://travis-ci.org/not-a-seagull/tlog"><img src="https://travis-ci.org/not-a-seagull/tlog.svg?branch=master" alt="Build Status" /></a> <a href='https://coveralls.io/github/not-a-seagull/tlog?branch=master'><img src='https://coveralls.io/repos/github/not-a-seagull/tlog/badge.svg?branch=master' alt='Coverage Status' /></a>
 
 
 This library was created due to my dissatisfaction with ulog's lack of Typescript support. This allows one to create logging modules to use in their programs.
