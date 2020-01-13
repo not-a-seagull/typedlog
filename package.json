@@ -5,6 +5,15 @@
   "main": "dist/index.js",
   "author": "not_a_seagull",
   "license": "BSD-3-Clause",
+  "homepage": "https://github.com/not-a-seagull/typedlog",
+  "keywords": [ "log", "logger", "typedlog" ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/not-a-seagull/typedlog"
+  },
+  "bugs": {
+    "url": "https://github.com/not-a-seagull/typedlog/issues"
+  },
   "devDependencies": {
     "@babel/core": "^7.8.0",
     "@babel/preset-env": "^7.8.0",
