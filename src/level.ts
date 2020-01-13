@@ -44,13 +44,13 @@ export enum LogLevel {
 // parse a log level from an environment variable or a 
 export function parseLogLevel(value: string): LogLevel {
   const valAsNumber = parseInt(value, 10);
-	const trueValue: string | number = valAsNumber || value.toLowerCase();
-	switch (trueValue) {
+  const trueValue: string | number = valAsNumber || value.toLowerCase();
+  switch (trueValue) {
     case "error": case 1: return LogLevel.Error;
     case "warn": case 2: return LogLevel.Warn;
-		case "info": case 3: return LogLevel.Info;
-		case "log": case 4: return LogLevel.Log;
-		case "trace": case 6: return LogLevel.Trace;
-		case "debug": case 5: default: return LogLevel.Debug;
-	}
+    case "info": case 3: return LogLevel.Info;
+    case "log": case 4: return LogLevel.Log;
+    case "trace": case 6: return LogLevel.Trace;
+    case "debug": case 5: default: return LogLevel.Debug;
+  }
 }

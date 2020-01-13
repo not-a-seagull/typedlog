@@ -42,6 +42,6 @@ const typedlog = require("../dist");
 
 test("Logger's default level should correspond with the environment variable", (assert) => {
   assert.plan(1);
-	const logger = typedlog.logger("test-name");
-	assert.equal(logger.level, typedlog.LogLevel.Error);
+  const logger = typedlog.logger("test-name");
+  assert.equal(logger.level, typedlog.LogLevel.Error);
 });

@@ -38,8 +38,8 @@ export function defaultLvl(): LogLevel {
   const query = location.search.substring(1).split("&"); 
   for (let i = 0; i < query.length; i++) {
     let keyValue = query[i].split("=");
-		let key = keyValue[0];
-		let value = keyValue[1];
+    let key = keyValue[0];
+    let value = keyValue[1];
     if (key === "log") {
       return parseLogLevel(value);
     }
@@ -47,7 +47,7 @@ export function defaultLvl(): LogLevel {
 
   try {
     return parseLogLevel(localStorage.getItem("log"));
-	} catch {
+  } catch {
     return LogLevel.Debug;
-	}
+  }
 }

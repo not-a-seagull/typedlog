@@ -60,11 +60,11 @@ const methodNames = [
 
 // sinon mock
 function setupMock() {
-	let fakeConsole = {};
+  let fakeConsole = {};
   for (const method of methodNames) {
     fakeConsole[method] = sinon.fake();
   }
-	return fakeConsole;
+  return fakeConsole;
 }
 
 // set up log level testing

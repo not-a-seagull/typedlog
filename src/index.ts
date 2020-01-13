@@ -42,32 +42,32 @@ type LogFunction = (this: any, ...args: any[]) => void;
 type LogFunctionName = "error" | "warn" | "info" | "log" | "debug" | "trace";
 
 export interface ConsoleLikeObject {
-	error: LogFunction;
+  error: LogFunction;
   warn: LogFunction;
-	info: LogFunction;
-	log: LogFunction;
-	debug: LogFunction;
+  info: LogFunction;
+  log: LogFunction;
+  debug: LogFunction;
   trace: LogFunction;
 }
 
 export interface Logger extends ConsoleLikeObject {
   name: string;
   level: LogLevel;
-	transforms: Transform[];
+  transforms: Transform[];
 }
 
 // instantiate a console-based log function
 function createConsoleFunction(logLevel: LogLevel, logName: LogFunctionName, internal: ConsoleLikeObject): LogFunction {
-	return function(this: Logger, ...args: any[]) {
-		if (this.level <= logLevel) {
-			// apply transforms
+  return function(this: Logger, ...args: any[]) {
+    if (this.level <= logLevel) {
+      // apply transforms
       for (let i = 0; i < this.transforms.length; i++) {
         this.transforms[i](args, logLevel, this.name);
-			}
+      }
 
       internal[logName](args);
-		}
-	};
+    }
+  };
 }
 
 let defaultLevel: LogLevel | undefined = undefined;
@@ -75,7 +75,7 @@ let defaultLevel: LogLevel | undefined = undefined;
 function getDefaultLevel(): LogLevel {
   if (defaultLevel !== undefined) {
     return defaultLevel;
-	}
+  }
   return (defaultLevel = defaultLvl());
 }
 
@@ -83,21 +83,21 @@ function getDefaultLevel(): LogLevel {
 const ll = LogLevel;
 
 function logger(name: string, internal: ConsoleLikeObject = null): Logger {
-	if (!internal) {
+  if (!internal) {
     internal = console;
-	}
+  }
 
-	return {
-		name,
-		level: getDefaultLevel(),
-		error: createConsoleFunction(ll.Error, "error", internal),
-		warn: createConsoleFunction(ll.Warn, "warn", internal),
-		info: createConsoleFunction(ll.Info, "info", internal),
-		log: createConsoleFunction(ll.Log, "log", internal),
+  return {
+    name,
+    level: getDefaultLevel(),
+    error: createConsoleFunction(ll.Error, "error", internal),
+    warn: createConsoleFunction(ll.Warn, "warn", internal),
+    info: createConsoleFunction(ll.Info, "info", internal),
+    log: createConsoleFunction(ll.Log, "log", internal),
     debug: createConsoleFunction(ll.Debug, "debug", internal),
-		trace: createConsoleFunction(ll.Trace, "trace", internal),
-		transforms: []
-	};
+    trace: createConsoleFunction(ll.Trace, "trace", internal),
+    transforms: []
+  };
 }
 
 export {logger, LogLevel, Transform};

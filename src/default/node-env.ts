@@ -36,10 +36,10 @@ import { LogLevel, parseLogLevel } from "../level";
 
 export function defaultLvl(): LogLevel {
   // get the log level from the environment variables
-	const logEnv = process.env.LOG;
-	if (logEnv === undefined) {
+  const logEnv = process.env.LOG;
+  if (logEnv === undefined) {
     return LogLevel.Debug;
-	}
+  }
 
-	return parseLogLevel(logEnv);
+  return parseLogLevel(logEnv);
 }
