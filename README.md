@@ -10,9 +10,8 @@ This library was created due to my dissatisfaction with ulog's lack of Typescrip
 If you would like to use typedlog in a Node program, install it via `npm` or `yarn`.
 
 ```
-# npm users
 $ npm i --save typedlog
-# yarn users
+# ...or, if you use yarn
 $ yarn add typedlog
 ```
 
@@ -132,9 +131,8 @@ logger.log("This should go to the file");
 typedlog uses [tape](https://github.com/substack/tape) for testing. In order to run the test suite, first install typedlog's development dependencies.
 
 ```
-# npm users
 $ npm ci
-# yarn users
+# ...or, if you use yarn
 $ yarn install
 
 $ npm run test
