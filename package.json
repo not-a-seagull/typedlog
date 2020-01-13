@@ -1,6 +1,6 @@
 {
   "name": "typedlog",
-  "version": "1.0.7",
+  "version": "1.1.0",
   "description": "Tiny logging utility with Typescript support",
   "main": "dist/index.js",
   "author": "not_a_seagull",
@@ -44,5 +44,7 @@
     "test": "npx tape test/**/*.js | npx tap-markdown"
   },
   "unpkg": "dist/webpack.js",
-  "files": [ "dist/*" ]
+  "files": [
+    "dist/*"
+  ]
 }
