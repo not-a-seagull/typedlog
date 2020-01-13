@@ -34,7 +34,7 @@ module.exports = {
   },
 
   output: {
-    library: "tlog",
+    library: "typedlog",
     libraryTarget: "assign",
     filename: "webpack.js"
   }

@@ -28,6 +28,8 @@ If you would like to use typedlog inside of the web browser, pull it from [unpkg
 
 ```
 const logger = require("typedlog").logger("my-module-name");
+// alternatively, if you're using typed log in a web browser, do:
+const logger = typedlog.logger("my-module-name");
 
 logger.info("Starting up!");
 logger.debug(`The result of 2+2 is ${2+2}`);
