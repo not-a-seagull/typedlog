@@ -1,6 +1,6 @@
 # typedlog - Minimalistic log implementation with TypeScript support
 
-<a href="https://www.npmjs.com/package/typedlog"><img src="https://img.shields.io/npm/v/typedlog.svg" alt="NPM Package" /></a> <a href="https://travis-ci.org/not-a-seagull/tlog"><img src="https://travis-ci.org/not-a-seagull/tlog.svg?branch=master" alt="Build Status" /></a> <a href='https://coveralls.io/github/not-a-seagull/tlog?branch=master'><img src='https://coveralls.io/repos/github/not-a-seagull/tlog/badge.svg?branch=master' alt='Coverage Status' /></a>
+<a href="https://www.npmjs.com/package/typedlog"><img src="https://img.shields.io/npm/v/typedlog.svg" alt="NPM Package" /></a> <a href="https://travis-ci.org/not-a-seagull/tlog"><img src="https://travis-ci.org/not-a-seagull/tlog.svg?branch=master" alt="Build Status" /></a> <a href='https://coveralls.io/github/not-a-seagull/tlog?branch=master'><img src='https://coveralls.io/repos/github/not-a-seagull/tlog/badge.svg?branch=master' alt='Coverage Status' /></a> <a href="https://github.com/not-a-seagull/typedlog/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-BSD%203--Clause-blue.svg" alt="BSD 3 Clause" /></a>
 
 
 This library was created due to my dissatisfaction with ulog's lack of Typescript support. This allows one to create logging modules to use in their programs. When minified, typedlog takes up around 2.36 kB of space. When minzipped, typedlog takes up 1.05 kB of space.
